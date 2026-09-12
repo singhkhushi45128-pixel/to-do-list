@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My To-Do List</title>
+<style>
+  body { font-family: Arial; max-width: 400px; margin: 50px auto; padding: 20px; }
+  h2 { text-align: center; }
+  .input-box { display: flex; gap: 10px; }
+  input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+  button { padding: 10px 15px; background: #25D366; color: white; border: none; border-radius: 5px; cursor: pointer; }
+  ul { list-style: none; padding: 0; margin-top: 20px; }
+  li { background: #f2f2f2; padding: 10px; margin-bottom: 8px; border-radius: 5px; display: flex; justify-content: space-between; }
+  li.done { text-decoration: line-through; opacity: 0.6; }
+  li span { cursor: pointer; color: red; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<h2>My To-Do List</h2>
+
+<div class="input-box">
+  <input type="text" id="taskInput" placeholder="New task likho...">
+  <button onclick="addTask()">Add</button>
+</div>
+
+<ul id="taskList"></ul>
+
+<script>
+  let input = document.getElementById("taskInput");
+  let list = document.getElementById("taskList");
+
+  function addTask() {
+    if (input.value === "") return;
+    
+    let li = document.createElement("li");
+    li.innerHTML = `${input.value} <span onclick="this.parentElement.remove()">X</span>`;
+    
+    // click karne pe done ho jayega
+    li.addEventListener("click", function() {
+      this.classList.toggle("done");
+    });
+
+    list.appendChild(li);
+    input.value = "";
+  }
+
+  // Enter dabane se bhi add ho jayega
+  input.addEventListener("keypress", function(e) {
+    if (e.key === "Enter") addTask();
+  });
+</script>
+
+</body>
+</html>
